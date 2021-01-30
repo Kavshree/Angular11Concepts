@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { MainRoutes } from './routes/mainRoute.route';
 import { AccordionComponent } from './utility/accordion.component';
 
 import { ProductsComponent } from './products/products.component';
@@ -11,7 +13,8 @@ import { ProductsComponent } from './products/products.component';
     AppComponent, AccordionComponent, ProductsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(MainRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
