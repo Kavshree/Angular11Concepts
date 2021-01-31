@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
         <p class="accordionBody">Lighting plan offers 50GB data for 45 days</p>
     </my-accordion>
     <my-accordion>
-        <p class="accordionHeader">Incedible</p>
+        <p class="accordionHeader">Incredible</p>
         <p class="accordionBody">Incedible plan offers Unlimited data for 90 days</p>
     </my-accordion>
     `
