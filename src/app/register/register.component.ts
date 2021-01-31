@@ -46,12 +46,13 @@ import {FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
             </form>
 
-            <div *ngIf="isSubmitted">
+            <div *ngIf="isSubmitted && isFormValid">
                 <h4> You submitted: </h4>
                 Name: {{myFormGroup.get('userName')?.value }} <br/>
                 Email: {{myFormGroup.get('userEmail')?.value }} <br/>
                 Phone: {{myFormGroup.get('userPhone')?.value }} <br/>
                 Plan: {{myFormGroup.get('userSelectedPlan')?.value }} <br/>
+                <button (click)="redirectToOrders()">confirm and order</button>
             </div>
         </div>
     `
@@ -65,7 +66,7 @@ export class registerComponent{
         userName: ['', [Validators.required]],
         userEmail: ['', [this.emailValidator]],
         userPhone: ['', [Validators.minLength(9), Validators.pattern("^[0-9]*$")]],
-        userSelectedPlan: ['']
+        userSelectedPlan: ['',[Validators.required]]
     })
    
     emailValidator(control: { value: any; }) {
@@ -80,6 +81,9 @@ export class registerComponent{
     submitForm() {
         this.isSubmitted = true;
         this.isFormValid = this.myFormGroup.status == "VALID" ? true : false;
+        if(!this.isFormValid) {
+            alert("Please submit a valid form to proceed...")
+        }
         console.log(this.myFormGroup.status)
     }
 
@@ -88,5 +92,9 @@ export class registerComponent{
     }
     get userPhone() {
         return this.myFormGroup.get('userPhone')
+    }
+
+    redirectToOrders() {
+
     }
 }
