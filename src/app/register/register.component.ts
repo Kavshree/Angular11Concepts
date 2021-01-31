@@ -19,7 +19,7 @@ import {FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
                 <label>Email </label>
                 <input class="form-control" type="text" formControlName="userEmail" />
                 <span class="badge badge-danger" 
-                    *ngIf="userEmail.invalid && (userEmail.dirty && 
+                    *ngIf="userEmail && userEmail.invalid && (userEmail.dirty && 
                     userEmail.errors && 
                     userEmail.errors.emailValidationError.length > 1)">
                     {{userEmail.errors.emailValidationError}}
@@ -29,8 +29,8 @@ import {FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
             <div class="form-group">
                 <label>Phone Number </label>
                 <input class="form-control" type="text" formControlName="userPhone" />
-                <span class="badge badge-danger" *ngIf="userPhone.dirty && userPhone.errors && userPhone.errors.pattern">only numbers allowed</span>
-                <span class="badge badge-danger" *ngIf="userPhone.dirty && userPhone.errors && userPhone.errors.minlength">minimum 9 digits</span>
+                <span class="badge badge-danger" *ngIf="userPhone && userPhone.dirty && userPhone.errors && userPhone.errors.pattern">only numbers allowed</span>
+                <span class="badge badge-danger" *ngIf="userPhone && userPhone.dirty && userPhone.errors && userPhone.errors.minlength">minimum 9 digits</span>
             </div>
 
             <div class="form-group">
