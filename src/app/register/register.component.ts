@@ -8,7 +8,7 @@ import {Router, ActivatedRoute } from '@angular/router'
     template: `
         <div *ngIf="myFormGroup">
             <h1>Register: </h1>
-            <h4 class="badge badge-info">
+            <h4 class="badge badge-info" *ngIf="myFormGroup.dirty && myFormGroup.status!='VALID' ">
                 Form is {{myFormGroup.status}}
             </h4>
             <form [formGroup]="myFormGroup">
@@ -119,5 +119,7 @@ export class registerComponent{
             userPhone: this.myFormGroup.get('userPhone')?.value, 
             } 
         })
+        console.log(this.myFormGroup.value)
+        localStorage.setItem('ordersPlacedCopy', JSON.stringify(this.myFormGroup.value));
     }
 }

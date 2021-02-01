@@ -26,20 +26,44 @@ import { ActivatedRoute } from '@angular/router';
 export class ordersComponent{
     constructor(private _ActivatedRoute: ActivatedRoute){}
     ordersPlaced = {
-        userName: "",
+        userName: null,
         userEmail:"",
         userPhone: "",
         userSelectedPlan: ""
     };
 
+    ordersLocalStorage: any;
+
     ngOnInit() {
-        this._ActivatedRoute.queryParams.subscribe(params => {
-            this.ordersPlaced.userEmail = params['userEmail'];
-            this.ordersPlaced.userSelectedPlan = params['userSelectedPlan'];
-            this.ordersPlaced.userName = params['userName'];
-            this.ordersPlaced.userEmail = params['userEmail'];
-            this.ordersPlaced.userPhone = params['userPhone'];
-        })
+
+        if(localStorage.getItem('ordersPlacedCopy')) {
+            this.ordersLocalStorage = localStorage.getItem('ordersPlacedCopy');
+            let ParsedObj = JSON.parse(this.ordersLocalStorage);
+            //console.log(`From localStorage ${localStorage.getItem('ordersPlacedCopy')} `);
+            console.log(ParsedObj)
+            this.ordersPlaced.userSelectedPlan = (this.ordersLocalStorage != null && JSON.parse(this.ordersLocalStorage)) ? 
+            ParsedObj.userSelectedPlan : "";
+
+            this.ordersPlaced.userName = (this.ordersLocalStorage != null && JSON.parse(this.ordersLocalStorage)) ? 
+            ParsedObj.userName : "";
+
+
+            this.ordersPlaced.userEmail = (this.ordersLocalStorage != null && JSON.parse(this.ordersLocalStorage)) ? 
+            ParsedObj.userEmail : "";
+
+
+            this.ordersPlaced.userPhone = (this.ordersLocalStorage != null && JSON.parse(this.ordersLocalStorage)) ? 
+            ParsedObj.userPhone : "";
+
+        } else {
+            this._ActivatedRoute.queryParams.subscribe(params => {
+                this.ordersPlaced.userSelectedPlan = params['userSelectedPlan'];
+                this.ordersPlaced.userName = params['userName'];
+                this.ordersPlaced.userEmail = params['userEmail'];
+                this.ordersPlaced.userPhone = params['userPhone'];
+            })
+        }
+        
     }
     
    
