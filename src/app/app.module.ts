@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { MainRoutes } from './routes/mainRoute.route';
 import { AccordionComponent } from './utility/accordion.component';
+import { MyService } from './utility/myService.service';
 
 import { ProductsComponent } from './products/products.component';
 
@@ -19,7 +20,7 @@ import { ProductsComponent } from './products/products.component';
     ReactiveFormsModule,
     RouterModule.forRoot(MainRoutes)
   ],
-  providers: [],
+  providers: [MyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

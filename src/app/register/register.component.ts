@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import {Router, ActivatedRoute } from '@angular/router'
+
 @Component({
     selector: 'register',
     template: `
@@ -52,22 +54,36 @@ import {FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
                 Email: {{myFormGroup.get('userEmail')?.value }} <br/>
                 Phone: {{myFormGroup.get('userPhone')?.value }} <br/>
                 Plan: {{myFormGroup.get('userSelectedPlan')?.value }} <br/>
-                <button (click)="redirectToOrders()">confirm and order</button>
+                <button class="form-control btn btn-primary" (click)="redirectToOrders()">confirm and place order</button>
             </div>
         </div>
     `
 })
 
 export class registerComponent{
-    isFormValid = false; isSubmitted=false;
-    productPlans = ['Basic', 'Rapid', 'Incredible'];
-    constructor(private fb: FormBuilder) {}
-    myFormGroup = this.fb.group({
-        userName: ['', [Validators.required]],
-        userEmail: ['', [this.emailValidator]],
-        userPhone: ['', [Validators.minLength(9), Validators.pattern("^[0-9]*$")]],
-        userSelectedPlan: ['',[Validators.required]]
-    })
+    isFormValid = false; isSubmitted=false;planSelected="";
+    myFormGroup: any;
+    productPlans = ['Basic', 'Lighting', 'Incredible'];
+    constructor(private fb: FormBuilder, private _ActivatedRoute:ActivatedRoute, private _router: Router) {}
+    ngOnInit() {
+        this.myFormGroup = this.fb.group({
+            userName: ['', [Validators.required]],
+            userEmail: ['', [Validators.required, this.emailValidator]],
+            userPhone: ['', [Validators.required, Validators.minLength(9), Validators.pattern("^[0-9]*$")]],
+            userSelectedPlan: ['',[Validators.required]]
+        })
+
+        this._ActivatedRoute.queryParams.subscribe(params => {
+            if(params) {
+                this.planSelected = params['planSelected'];
+            }
+        })
+    }
+
+    ngAfterViewInit() {
+        this.myFormGroup.get('userSelectedPlan').setValue(this.planSelected)
+    }
+    
    
     emailValidator(control: { value: any; }) {
         if(control.value && control.value.indexOf("@") > -1){
@@ -95,6 +111,13 @@ export class registerComponent{
     }
 
     redirectToOrders() {
-
+        //this._router.navigateByUrl(`/Orders/${this.myFormGroup.get('userSelectedPlan')?.value}/${this.myFormGroup.get('userName')?.value}/${this.myFormGroup.get('userEmail')?.value}/${this.myFormGroup.get('userPhone')?.value}`)
+        this._router.navigate(['/Orders'],{ queryParams: { 
+            userSelectedPlan: this.myFormGroup.get('userSelectedPlan')?.value, 
+            userName: this.myFormGroup.get('userName')?.value, 
+            userEmail: this.myFormGroup.get('userEmail')?.value, 
+            userPhone: this.myFormGroup.get('userPhone')?.value, 
+            } 
+        })
     }
 }

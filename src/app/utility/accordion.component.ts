@@ -8,10 +8,7 @@ import { Component } from '@angular/core';
     </div>
     <div class="AccBody" *ngIf="isBodyVisible">
         <ng-content select=".accordionBody"></ng-content>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">Learn More</button>
-                <button type="button" class="btn btn-secondary">Buy</button>
-            </div>
+           
     </div>
    
     `,
@@ -24,5 +21,5 @@ import { Component } from '@angular/core';
 })
 
 export class AccordionComponent{
-    isBodyVisible = false;
+    isBodyVisible = true;
 }

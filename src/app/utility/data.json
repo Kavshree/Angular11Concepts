@@ -1,0 +1,15 @@
+[{
+    "planName": "Basic",
+    "planSpeed": "10GB",
+    "planValidity": "5 days"
+
+},{
+    "planName": "Lighting",
+    "planSpeed": "50GB",
+    "planValidity": "45 days"
+
+},{
+    "planName": "Incredible",
+    "planSpeed": "Unlimited",
+    "planValidity": "90 days"
+}]

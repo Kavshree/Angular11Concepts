@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations:[ordersComponent],
-    imports: [RouterModule.forChild(OrdersChildRoutes)]
+    imports: [CommonModule, RouterModule.forChild(OrdersChildRoutes)]
 })
 
 export class ordersModule {}
